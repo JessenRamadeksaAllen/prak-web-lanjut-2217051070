@@ -18,18 +18,28 @@
                 <div class="mb-4">
                     <label for="nama" class="block text-gray-700 font-semibold mb-2">Nama:</label>
                     <input type="text" id="nama" name="nama" placeholder="Masukkan Nama" class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500">
+                    @foreach($errors->get('nama') as $msg)
+                        <p class="text-red-500">{{ $msg }}</p>
+                    @endforeach
                 </div>
 
                 <!-- Input NPM -->
                 <div class="mb-4">
                     <label for="npm" class="block text-gray-700 font-semibold mb-2">NPM:</label>
                     <input type="text" id="npm" name="npm" placeholder="Masukkan NPM" class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500">
+                    @foreach($errors->get('npm') as $msg)
+                        <p class="text-red-500">{{ $msg }}</p>
+                    @endforeach
                 </div>
 
                 <!-- Input Kelas -->
                 <div class="mb-4">
-                    <label for="kelas" class="block text-gray-700 font-semibold mb-2">Kelas:</label>
-                    <input type="text" id="kelas" name="kelas" placeholder="Masukkan Kelas" class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500">
+                    <label for="id_kelas" class="block text-gray-700 font-semibold mb-2">Kelas:</label>
+                    <select name="kelas_id" id="kelas_id" required>
+                        @foreach($kelas as $kelasItem)
+                        <option value="{{$kelasItem->id}}">{{$kelasItem->nama_kelas}}</option>
+                        @endforeach
+                    </select>
                 </div>
 
                 <!-- Tombol Submit -->
