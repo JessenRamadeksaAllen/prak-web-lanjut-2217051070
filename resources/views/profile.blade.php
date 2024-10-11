@@ -18,7 +18,7 @@
     <div class="text-center">
       <h2 class="text-2xl font-semibold text-gray-800">{{$nama}}</h2>
       <p class="text-gray-600 mt-2">{{$npm}}</p>
-      <p class="text-gray-600 mt-1">{{$kelas}}</p>
+      <p class="text-gray-600 mt-1">{{$nama_kelas ?? 'Kelas tidak ditemukan' }}</p>
     </div>
 
     <!-- Divider -->
