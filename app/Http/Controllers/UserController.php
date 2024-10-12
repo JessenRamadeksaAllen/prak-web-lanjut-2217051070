@@ -2,15 +2,15 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Http\Request;
 use App\Models\Kelas;
 use App\Models\UserModel;
-use Illuminate\Http\Request;
-use App\Http\Requests\UserRequest;
 
 class UserController extends Controller
 {
     public $userModel;
     public $kelasModel;
+
 
     public function __construct()
     {
@@ -18,77 +18,60 @@ class UserController extends Controller
         $this->kelasModel = new Kelas();
     }
 
-    public function index() 
-    { 
-        $users = $this->userModel->getUser(); // Ambil data user dari model
-        
-        $data = [ 
-            'title' => 'List of Users', 
-            'users' => $users, // Kirim variabel $users ke view
-        ]; 
+    public function index()
+{
+    $data = [
+        'title' => 'List User',
+        'users' => $this->userModel->getUser(),
+    ];
 
-        return view('list_user', $data); 
+    return view('list_user', $data);
+}
+
+
+public function create(){
+    $kelasModel = new Kelas();
+
+    // Mengambil data kelas menggunakan method getKelas
+    $kelas = $kelasModel->getKelas();
+
+    $data = [
+        'title' => 'Create User',
+        'kelas' => $kelas,
+    ];
+
+    return view('create_user', $data);
+}
+
+public function store(Request $request)
+{
+    // Validasi input
+    $request->validate([
+        'nama' => 'required',
+        'npm' => 'required',
+        'kelas_id' => 'required',
+        'foto' => 'image|file|max:2048', // Validasi foto
+    ]);
+
+    // Proses upload foto
+    if ($request->hasFile('foto')) {
+        $file = $request->file('foto');
+        $filename = time() . '_' . $file->getClientOriginalName();
+        $file->storeAs('uploads', $filename); // Menyimpan file ke storage
+
+        // Simpan data user ke database
+        $this->userModel->create([
+            'nama' => $request->input('nama'),
+            'npm' => $request->input('npm'),
+            'kelas_id' => $request->input('kelas_id'),
+            'foto' => $filename, // Menyimpan nama file ke database
+        ]);
     }
 
+    // Redirect ke halaman daftar pengguna setelah penyimpanan
+    return redirect()->route('user.index')->with('success', 'Pengguna berhasil ditambahkan');
+}
 
-    // public function index() 
-    // { 
-    //     $data = [ 
-    //         'title' => 'Create User', 
-    //         'kelas' => $this->userModel->getUser(), 
-    //     ]; 
-    
-    //     return view('list_user', $data); 
-    // }
 
-    public function create(){
 
-        $kelas = $this->kelasModel->getKelas();
-
-        // $kelasModel = new Kelas ();
-
-        // $kelas = $kelasModel->getKelas();
-
-        $data = [
-            'title' => 'Create User',
-            'kelas' => $kelas,
-        ];
-
-        return view('create_user', $data);
-        // return view('create_user', [
-        //     'kelas' => Kelas::all(),
-        // ]);
-    }
-
-    public function store(Request $request) 
-    { 
-        $this->userModel->create([ 
-        'nama' => $request->input('nama'), 
-        'npm' => $request->input('npm'), 
-        'kelas_id' => $request->input('kelas_id'), 
-        ]); 
-        return redirect()->route('users.index'); 
-    }
-
-    // public function store(UserRequest $request)
-    // {
-    //     $validatedData = $request->validate([
-    //         'nama' => 'required|string|max:255',
-    //         'npm' => 'required|string|max:255',
-    //         'kelas_id' => 'required|exists:kelas,id',
-    //        ]);
-
-    //        $user = $this->userModel->create($validatedData);
-
-    //     //    $user = UserModel::create($validatedData);
-           
-    //        $user->load('kelas');
-
-    //     return view('profile', [
-    //         'nama' => $user->nama,
-    //         'npm' => $user->npm,
-    //         'nama_kelas' => $user->kelas->nama_kelas ?? 'Kelas tidak ditemukan',
-            
-    //     ]);
-    // }
 }
