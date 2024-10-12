@@ -52,7 +52,7 @@
                 <label for="foto" class="block text-gray-700 text-lg font-semibold mb-2">Foto:</label>
                 <input type="file" id="foto" name="foto" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-4 focus:ring-purple-300 focus:border-transparent transition duration-300 ease-in-out" required>
                 @if ($user->foto)
-                <img src="{{ asset('upload/img/' . $user->foto) }}" alt="User Photo" class="w-32 h-32 mt-3 object-cover rounded-lg">
+                <img src="{{ asset('storage/uploads/' . $user->foto) }}" alt="User Photo" class="w-32 h-32 mt-3 object-cover rounded-lg">
                 @endif
                 @foreach ($errors->get('foto') as $msg )
                     <p class="text-red-500">{{ $msg }}</p>

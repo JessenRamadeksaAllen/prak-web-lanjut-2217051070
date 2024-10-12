@@ -1,6 +1,8 @@
 @extends('layouts.app')
 
 @section('content')
+@section('title', 'List User')
+
 <div class="container mx-auto p-6">
     <h1 class="text-4xl font-extrabold mb-8 text-center bg-gradient-to-r from-teal-400 to-blue-500 bg-clip-text text-transparent">
         Daftar Pengguna
@@ -29,7 +31,8 @@
                         <td class="px-6 py-4 border-b border-gray-200 text-center">{{ $user['nama'] }}</td>
                         <td class="px-6 py-4 border-b border-gray-200 text-center">{{ $user['npm'] }}</td>
                         <td class="px-6 py-4 border-b border-gray-200 text-center">{{ $user['nama_kelas'] }}</td>
-                        <td class="px-6 py-4 border-b border-gray-200 text-center">
+                        <td class="px-6 py-4 border-b border-gray-200 text-center flex justify-center">
+                            
                             @if($user->foto)
                                 <img src="{{ asset('upload/img/' . $user->foto) }}" alt="Foto {{ $user->nama }}" class="w-20 h-20 object-cover rounded-lg shadow-sm">
                             @else

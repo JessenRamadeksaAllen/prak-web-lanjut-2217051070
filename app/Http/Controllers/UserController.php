@@ -43,36 +43,36 @@ public function create(){
     return view('create_user', $data);
 }
 
-public function store(Request $request)
-{
-    // Validasi input
-    $request->validate([
-        'nama' => 'required',
-        'npm' => 'required',
-        'kelas_id' => 'required',
-        'foto' => 'image|file|max:2048', // Validasi foto
-    ]);
+public function store(Request $request) 
+    { 
+        // Validasi input
+        $request->validate([
+            'nama' => 'required|string|max:255',
+            'npm' => 'required|string|max:255',
+            'kelas_id' => 'required|integer',
+            'foto' => 'required|nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048', // Validasi foto
+        ]);
 
-    // Proses upload foto
-    $filename = null; // Default jika tidak ada foto
-    if ($request->hasFile('foto')) {
-        $file = $request->file('foto');
-        $filename = time() . '_' . $file->getClientOriginalName();
-        $file->move(public_path('upload/img'), $filename); // Simpan di public/upload/img
+        // Proses upload foto jika ada
+        if ($request->hasFile('foto')) {
+            $foto = $request->file('foto');
+            $fotoName = time() . '_' . $foto->getClientOriginalName(); // Buat nama file unik
+            $foto->storeAs('uploads', $fotoName); // Simpan foto di folder storage/app/uploads
+        } else {
+            $fotoName = null;
+        }
+
+        // Simpan data user ke database
+        $this->userModel->create([ 
+            'nama' => $request->input('nama'), 
+            'npm' => $request->input('npm'), 
+            'kelas_id' => $request->input('kelas_id'),
+            'foto' => $fotoName, // Menyimpan nama file ke database
+        ]); 
+
+        // Redirect dengan pesan sukses
+        return redirect()->to('/')->with('success', 'User berhasil ditambahkan'); 
     }
-    
-
-    // Simpan data user ke database
-    $this->userModel->create([
-        'nama' => $request->input('nama'),
-        'npm' => $request->input('npm'),
-        'kelas_id' => $request->input('kelas_id'),
-        'foto' => $filename, // Menyimpan nama file ke database
-    ]);
-
-    return redirect()->to('/')->with('success', 'User Berhasil dibuat');
-}
-
 
 public function edit($id) {
     $user = UserModel::findOrFail($id);
