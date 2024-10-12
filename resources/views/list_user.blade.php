@@ -2,46 +2,58 @@
 
 @section('content')
 <div class="container mx-auto p-6">
-    <h1 class="text-3xl font-bold mb-6 text-center bg-gradient-to-r from-blue-500 to-blue-600 bg-clip-text text-transparent">
+    <h1 class="text-4xl font-extrabold mb-8 text-center bg-gradient-to-r from-teal-400 to-blue-500 bg-clip-text text-transparent">
         Daftar Pengguna
     </h1>
     
-    <a href="{{ route('user.create') }}" class="inline-block bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded mb-3 transition duration-300">
+    <a href="{{ route('user.create') }}" class="inline-block bg-gradient-to-r from-green-500 to-lime-500 text-white font-bold py-3 px-6 rounded-lg shadow-md hover:shadow-lg mb-6 transition duration-300">
         Tambah Pengguna Baru
     </a>    
     
     <div class="overflow-x-auto bg-white shadow-lg rounded-lg">
         <table class="min-w-full border border-gray-300 rounded-lg overflow-hidden">
-            <thead class="bg-gradient-to-r from-blue-500 to-blue-600 text-white">
+            <thead class="bg-gradient-to-r from-teal-500 to-blue-500 text-white">
                 <tr>
-                    <th class="px-6 py-3 text-center text-sm font-medium uppercase tracking-wider">ID</th>
-                    <th class="px-6 py-3 text-center text-sm font-medium uppercase tracking-wider">Nama</th>
-                    <th class="px-6 py-3 text-center text-sm font-medium uppercase tracking-wider">NPM</th>
-                    <th class="px-6 py-3 text-center text-sm font-medium uppercase tracking-wider">Kelas</th>
-                    <th class="px-6 py-3 text-center text-sm font-medium uppercase tracking-wider">Foto</th>
-                    <th class="px-6 py-3 text-center text-sm font-medium uppercase tracking-wider">Aksi</th>
+                    <th class="px-6 py-3 text-center text-sm font-semibold uppercase tracking-wider">ID</th>
+                    <th class="px-6 py-3 text-center text-sm font-semibold uppercase tracking-wider">Nama</th>
+                    <th class="px-6 py-3 text-center text-sm font-semibold uppercase tracking-wider">NPM</th>
+                    <th class="px-6 py-3 text-center text-sm font-semibold uppercase tracking-wider">Kelas</th>
+                    <th class="px-6 py-3 text-center text-sm font-semibold uppercase tracking-wider">Foto</th>
+                    <th class="px-6 py-3 text-center text-sm font-semibold uppercase tracking-wider">Aksi</th>
                 </tr>
             </thead>            
             <tbody>
                 @foreach ($users as $user)
-                    <tr class=" hover:bg-gray-200 transition-colors">
+                    <tr class="bg-white hover:bg-gray-100 transition-colors duration-300 rounded-lg shadow-sm hover:shadow-md">
                         <td class="px-6 py-4 border-b border-gray-200 text-center">{{ $user['id'] }}</td>
                         <td class="px-6 py-4 border-b border-gray-200 text-center">{{ $user['nama'] }}</td>
                         <td class="px-6 py-4 border-b border-gray-200 text-center">{{ $user['npm'] }}</td>
                         <td class="px-6 py-4 border-b border-gray-200 text-center">{{ $user['nama_kelas'] }}</td>
                         <td class="px-6 py-4 border-b border-gray-200 text-center">
                             @if($user->foto)
-                                <img src="{{ asset('upload/img/' . $user->foto) }}" alt="Foto {{ $user->nama }}" class="w-20 h-20 object-cover rounded">
+                                <img src="{{ asset('upload/img/' . $user->foto) }}" alt="Foto {{ $user->nama }}" class="w-20 h-20 object-cover rounded-lg shadow-sm">
                             @else
-                                <span>Tidak ada foto</span>
+                                <span class="text-gray-500 italic">Tidak ada foto</span>
                             @endif
-                        </td>
+                        </td>                        
                         <td class="px-6 py-4 border-b border-gray-200 text-center">
-                            <button class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">Edit</button>
-                            <button class="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600">Delete</button>
-                            <a href="{{ route('user.show', $user->id) }}" class="inline-block bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition duration-300">
-                                Detail
-                            </a>
+                            <div class="flex justify-center space-x-2">
+                                <a href="{{ route('user.show', $user['id']) }}" class="inline-block bg-gradient-to-r from-blue-500 to-blue-700 text-white px-4 py-2 rounded-lg shadow hover:shadow-lg transition duration-300">
+                                    View
+                                </a>
+
+                                <a href="{{ route('user.edit', $user['id']) }}" class="bg-gradient-to-r from-yellow-500 to-yellow-700 text-white px-4 py-2 rounded-lg shadow hover:shadow-lg transition duration-300">
+                                    Edit
+                                </a>
+
+                                <form action="{{ route('user.destroy', $user['id']) }}" method="POST" class="inline-block">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button class="bg-gradient-to-r from-red-500 to-red-700 text-white px-4 py-2 rounded-lg shadow hover:shadow-lg transition duration-300" onclick="return confirm('Apakah anda yakin ingin menghapus user ini?')">
+                                        Delete
+                                    </button>
+                                </form>
+                            </div>
                         </td>
                     </tr>
                 @endforeach
