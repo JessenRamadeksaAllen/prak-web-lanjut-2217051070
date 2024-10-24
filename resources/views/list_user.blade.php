@@ -32,9 +32,9 @@
                         <td class="px-6 py-4 border-b border-gray-200 text-center">{{ $user['npm'] }}</td>
                         <td class="px-6 py-4 border-b border-gray-200 text-center">{{ $user['nama_kelas'] }}</td>
                         <td class="px-6 py-4 border-b border-gray-200 text-center flex justify-center">
-                            
                             @if($user->foto)
-                                <img src="{{ asset('upload/img/' . $user->foto) }}" alt="Foto {{ $user->nama }}" class="w-20 h-20 object-cover rounded-lg shadow-sm">
+                                <!-- Menampilkan gambar dengan Storage::url() -->
+                                <img src="{{ Storage::url('uploads/' . $user->foto) }}" alt="Foto {{ $user->nama }}" class="w-20 h-20 object-cover rounded-lg shadow-sm">
                             @else
                                 <span class="text-gray-500 italic">Tidak ada foto</span>
                             @endif

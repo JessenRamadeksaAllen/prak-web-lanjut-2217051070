@@ -5,8 +5,8 @@
     <div class="text-center bg-white p-10 rounded-3xl shadow-lg transform transition duration-500 hover:scale-105 hover:shadow-2xl w-full max-w-lg">
         <!-- Logo Profile -->
         @php
-            $defaultFoto = 'path/to/default-foto.jpg'; // Pastikan path ke foto default benar
-            $userFoto = $user->foto ? asset('upload/img/' . $user->foto) : asset($defaultFoto);
+            $defaultFoto = 'path/to/default-foto.jpg'; // Path ke foto default jika tidak ada foto user
+            $userFoto = $user->foto ? Storage::url('uploads/' . $user->foto) : asset($defaultFoto);
         @endphp
 
         <img src="{{ $userFoto }}" alt="Profile Logo" class="mx-auto mb-6 rounded-full w-40 h-40 object-cover ring-4 ring-blue-500 shadow-lg transition duration-300 transform hover:scale-105">
