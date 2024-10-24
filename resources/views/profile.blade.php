@@ -6,19 +6,23 @@
   <title>Profil Pengguna</title>
   @vite('resources/css/app.css')
 </head>
+
 <body class="flex items-center justify-center h-screen bg-gradient-to-r from-blue-500 via-indigo-500 to-purple-600">
 
   <div class="max-w-sm rounded-xl overflow-hidden shadow-lg bg-white p-8 transform hover:scale-105 transition-all duration-300">
     <!-- Foto Profil Lingkaran -->
     <div class="flex justify-center mb-4">
-      <img class="w-32 h-32 rounded-full border-4 border-gray-200 object-cover shadow-md"src="{{ asset('assets/img/jamet.jpg') }}" alt="Foto Profil">
+      <img class="w-32 h-32 rounded-full border-4 border-gray-200 object-cover shadow-md"
+           src="{{ asset('storage/uploads/' . $foto) }}" alt="Foto Profil"> <!-- Menggunakan foto dari database -->
     </div>
     
-    <!-- Nama, Kelas, dan NPM -->
+    <!-- Nama, Kelas, Semester, Fakultas, dan Jurusan -->
     <div class="text-center">
       <h2 class="text-2xl font-semibold text-gray-800">{{$nama}}</h2>
-      <p class="text-gray-600 mt-2">{{$npm}}</p>
-      <p class="text-gray-600 mt-1">{{$nama_kelas ?? 'Kelas tidak ditemukan' }}</p>
+      <p class="text-gray-600 mt-2">Semester: {{$semester}}</p> <!-- Menampilkan semester -->
+      <p class="text-gray-600 mt-1">{{$nama_kelas ?? 'Kelas tidak ditemukan' }}</p> <!-- Menampilkan nama kelas -->
+      <p class="text-gray-600 mt-1">{{$nama_fakultas ?? 'Fakultas tidak ditemukan' }}</p> <!-- Menampilkan nama fakultas -->
+      <p class="text-gray-600 mt-1">Jurusan: {{$jurusan}}</p> <!-- Menampilkan jurusan -->
     </div>
 
     <!-- Divider -->
