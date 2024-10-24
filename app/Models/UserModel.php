@@ -14,17 +14,31 @@ class UserModel extends Model
 
     protected $fillable = [
         'nama',
-        'npm',
         'kelas_id',
+        'fakultas_id',
+        'jurusan',
+        'semester',
         'foto',
     ];
 
-    public function getUser(){
-        return $this->join('kelas', 'kelas.id', '=', 'user.kelas_id')->select('user.*', 'kelas.nama_kelas as nama_kelas')->get();
+    // Method untuk mengambil data user beserta nama kelas dan fakultas
+    public function getUser()
+    {
+        return $this->join('kelas', 'kelas.id', '=', 'user.kelas_id')
+                    ->join('fakultas', 'fakultas.id', '=', 'user.fakultas_id') // Relasi dengan fakultas
+                    ->select('user.*', 'kelas.nama_kelas as nama_kelas', 'fakultas.nama_fakultas as nama_fakultas') // Tambahkan nama fakultas
+                    ->get();
     }
 
-
-    public function kelas(){
+    // Relasi dengan model Kelas
+    public function kelas()
+    {
         return $this->belongsTo(Kelas::class, 'kelas_id');
+    }
+
+    // Relasi dengan model Fakultas
+    public function fakultas()
+    {
+        return $this->belongsTo(Fakultas::class, 'fakultas_id');
     }
 }

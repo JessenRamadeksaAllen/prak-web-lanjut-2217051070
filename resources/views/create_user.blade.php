@@ -33,21 +33,50 @@
             </div>
     
             <div class="mb-4">
-                <label for="npm" class="block text-gray-800 text-lg font-semibold mb-1">NPM:</label>
-                <input type="text" id="npm" name="npm" 
-                       class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-teal-400 transition duration-300 ease-in-out text-gray-800">
-                @foreach ($errors->get('npm') as $msg)
-                    <p class="text-red-600 text-sm">{{ $msg }}</p>
-                @endforeach
-            </div>
-    
-            <div class="mb-4">
                 <label for="kelas_id" class="block text-gray-800 text-lg font-semibold mb-1">Kelas:</label>
                 <select name="kelas_id" id="kelas_id" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-teal-400 transition duration-300 ease-in-out text-gray-800">
                     @foreach($kelas as $kelasItem)
                         <option value="{{ $kelasItem->id }}">{{ $kelasItem->nama_kelas }}</option>
                     @endforeach
                 </select>
+            </div>
+
+            <!-- Tambahkan Input untuk Semester -->
+            <div class="mb-4">
+                <label for="semester" class="block text-gray-800 text-lg font-semibold mb-1">Semester:</label>
+                <input type="number" id="semester" name="semester" min="1" max="14" 
+                       class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-teal-400 transition duration-300 ease-in-out text-gray-800">
+                @foreach ($errors->get('semester') as $msg)
+                    <p class="text-red-600 text-sm">{{ $msg }}</p>
+                @endforeach
+            </div>
+
+            <!-- Tambahkan Dropdown untuk Jurusan -->
+            <div class="mb-4">
+                <label for="jurusan" class="block text-gray-800 text-lg font-semibold mb-1">Jurusan:</label>
+                <select name="jurusan" id="jurusan" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-teal-400 transition duration-300 ease-in-out text-gray-800">
+                    <option value="fisika">Fisika</option>
+                    <option value="kimia">Kimia</option>
+                    <option value="biologi">Biologi</option>
+                    <option value="matematika">Matematika</option>
+                    <option value="ilmu komputer">Ilmu Komputer</option>
+                </select>
+                @foreach ($errors->get('jurusan') as $msg)
+                    <p class="text-red-600 text-sm">{{ $msg }}</p>
+                @endforeach
+            </div>
+
+            <!-- Tambahkan Dropdown untuk Fakultas -->
+            <div class="mb-4">
+                <label for="fakultas_id" class="block text-gray-800 text-lg font-semibold mb-1">Fakultas:</label>
+                <select name="fakultas_id" id="fakultas_id" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-teal-400 transition duration-300 ease-in-out text-gray-800">
+                    @foreach($fakultas as $fakultasItem)
+                        <option value="{{ $fakultasItem->id }}">{{ $fakultasItem->nama_fakultas }}</option>
+                    @endforeach
+                </select>
+                @foreach ($errors->get('fakultas_id') as $msg)
+                    <p class="text-red-600 text-sm">{{ $msg }}</p>
+                @endforeach
             </div>
 
             <div class="mb-4">

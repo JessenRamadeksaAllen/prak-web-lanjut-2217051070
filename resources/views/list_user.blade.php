@@ -18,8 +18,10 @@
                 <tr>
                     <th class="px-6 py-3 text-center text-sm font-semibold uppercase tracking-wider">ID</th>
                     <th class="px-6 py-3 text-center text-sm font-semibold uppercase tracking-wider">Nama</th>
-                    <th class="px-6 py-3 text-center text-sm font-semibold uppercase tracking-wider">NPM</th>
                     <th class="px-6 py-3 text-center text-sm font-semibold uppercase tracking-wider">Kelas</th>
+                    <th class="px-6 py-3 text-center text-sm font-semibold uppercase tracking-wider">Fakultas</th> <!-- Kolom Fakultas -->
+                    <th class="px-6 py-3 text-center text-sm font-semibold uppercase tracking-wider">Jurusan</th> <!-- Kolom Jurusan -->
+                    <th class="px-6 py-3 text-center text-sm font-semibold uppercase tracking-wider">Semester</th> <!-- Kolom Semester -->
                     <th class="px-6 py-3 text-center text-sm font-semibold uppercase tracking-wider">Foto</th>
                     <th class="px-6 py-3 text-center text-sm font-semibold uppercase tracking-wider">Aksi</th>
                 </tr>
@@ -29,8 +31,10 @@
                     <tr class="bg-white hover:bg-gray-100 transition-colors duration-300 rounded-lg shadow-sm hover:shadow-md">
                         <td class="px-6 py-4 border-b border-gray-200 text-center">{{ $user['id'] }}</td>
                         <td class="px-6 py-4 border-b border-gray-200 text-center">{{ $user['nama'] }}</td>
-                        <td class="px-6 py-4 border-b border-gray-200 text-center">{{ $user['npm'] }}</td>
                         <td class="px-6 py-4 border-b border-gray-200 text-center">{{ $user['nama_kelas'] }}</td>
+                        <td class="px-6 py-4 border-b border-gray-200 text-center">{{ $user['nama_fakultas'] }}</td> <!-- Menampilkan Fakultas -->
+                        <td class="px-6 py-4 border-b border-gray-200 text-center">{{ $user['jurusan'] }}</td> <!-- Menampilkan Jurusan -->
+                        <td class="px-6 py-4 border-b border-gray-200 text-center">{{ $user['semester'] }}</td> <!-- Menampilkan Semester -->
                         <td class="px-6 py-4 border-b border-gray-200 text-center flex justify-center">
                             @if($user->foto)
                                 <!-- Menampilkan gambar dengan Storage::url() -->
